@@ -31,16 +31,12 @@ public class Agente extends Persona{
 	public List<Viaggio> getViaggi() { return viaggi; }
 	
 	public Viaggio getViaggioInCorso () {
-		Viaggio viaggioInCorso = null;
 		for (Viaggio viaggio : viaggi) {
 			if (viaggio.getInCorso()) {
-				viaggioInCorso = viaggio;
-				break;
-			} else {
-				throw new IllegalArgumentException("Non ci sono viaggi in corso!!");
+				return viaggio;
 			}
 		}
-		return viaggioInCorso;
+		throw new IllegalArgumentException("Non ci sono viaggi in corso!!");
 	}
 	
 	public void aggiungiNegozio(Negozio negozio) {
