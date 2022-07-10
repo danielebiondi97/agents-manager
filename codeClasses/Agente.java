@@ -39,13 +39,26 @@ public class Agente extends Persona{
 		throw new IllegalArgumentException("Non ci sono viaggi in corso!!");
 	}
 	
+	private boolean controllaInCorso() {
+		for (Viaggio viaggio : viaggi) {
+			if (viaggio.getInCorso()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void aggiungiNegozio(Negozio negozio) {
 		negozi.add(negozio);
 	}
 	
 	public void aggiungiViaggio (int nViaggio) {
-		Viaggio viaggio = new Viaggio(nViaggio, this);
-		viaggi.add(viaggio);
+		if (!controllaInCorso()) {
+			Viaggio viaggio = new Viaggio(nViaggio, this);
+			viaggi.add(viaggio);
+		} else {
+			throw new IllegalArgumentException("Non puoi iniziare un viaggio prima di terminare quello in corso!");
+		}
 	}
 	
 	public Set<Negozio> negoziDaVisitare () {
